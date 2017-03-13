@@ -21,6 +21,10 @@ const double beta=0.5;
 void Madelung_constant1(vector<vector<vector<double>>> &M1) {
 
 int h,k,l;
+int flagx, flagy, flagz;
+flagx=0;
+flagy=0;
+flagz=0;
 
 for (int xc=0; xc<=nx; xc += 4) {
 for (int yc=0; yc<=ny; yc += 4) {
@@ -39,8 +43,13 @@ for (int zc=0; zc<=nz; zc += 4) {
  }
  }
 
+ M1[xc][yc][zc] = pow(-1,flagx+flagy+flagz)*M1[xc][yc][zc];
+
+ flagz += 1;
 }
+ flagy += 1;
 }
+ flagx += 1;
 }
 
 }
