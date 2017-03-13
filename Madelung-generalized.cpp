@@ -15,7 +15,7 @@ const unsigned int ny=20;
 const unsigned int nz=20;
 const unsigned int n=8.1;
 const double r0=2.82;
-const double epsilon=1e-3;
+const double epsilon=1e-1;
 
 void Madelung_constant1(vector<vector<vector<double>>> &M1) {
 

@@ -15,7 +15,7 @@ const unsigned int ny=20;
 const unsigned int nz=20;
 const unsigned int n=8.1;
 const double r0=2.82;
-const double epsilon=1e-3;
+const double epsilon=1e-1;
 const double beta=0.5;
 
 void Madelung_constant1(vector<vector<vector<double>>> &M1) {
@@ -89,7 +89,7 @@ r = r0*epsilon;
 r = r0*sqrt(pow(i-xc,2)+pow(j-yc,2)+pow(k-zc,2));
 }
 
-U[i][j][k][xc][yc][zc]=((-M1[xc][yc][zc])/(r*exp(beta*r)))+(alpha*M2[xc][yc][zc])/pow(r,n);
+U[i][j][k][xc][yc][zc]=((-M1[xc][yc][zc])/r)+(alpha*M2[xc][yc][zc])/pow(r,n);
 
 }
 }
