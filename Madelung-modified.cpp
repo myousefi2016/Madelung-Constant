@@ -10,9 +10,9 @@
 
 using namespace std;
 
-const unsigned int nx=100;
-const unsigned int ny=100;
-const unsigned int nz=100;
+const unsigned int nx=200;
+const unsigned int ny=200;
+const unsigned int nz=200;
 const unsigned int n=8.1;
 const double r0=2.82;
 const double epsilon=1e-1;
@@ -29,7 +29,7 @@ sum=0.0;
    for (l=0; l<nz+1; l++) {
  
  if (h!=0 && k!=0 && l!=0) {
- sum += pow(-1.0,h+k+l)/sqrt(pow(h,2)+pow(k,2)+pow(l,2));
+ sum += pow(-1.0,h+k+l)/(sqrt(pow(h,2)+pow(k,2)+pow(l,2))*exp(beta*r0*sqrt(pow(h,2)+pow(k,2)+pow(l,2))));
  }
 
 
@@ -78,7 +78,7 @@ r = r0*epsilon;
 r = r0*sqrt(pow(i,2)+pow(j,2)+pow(k,2));
 }
 
-U[i][j][k]=((-M1)/(r*exp(beta*r)))+(alpha*M2)/pow(r,n);
+U[i][j][k]=((-M1)/r)+(alpha*M2)/pow(r,n);
 
 }
 }

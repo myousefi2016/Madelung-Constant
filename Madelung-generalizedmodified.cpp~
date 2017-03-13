@@ -31,7 +31,7 @@ for (int zc=0; zc<=nz; zc += 4) {
    for (l=0; l<nz+1; l += 4) {
  
  if (h!=xc && k!=yc && l!=zc) {
- M1[xc][yc][zc] += pow(-1.0,h+k+l-xc-yc-zc)/sqrt(pow(h-xc,2)+pow(k-yc,2)+pow(l-zc,2));
+ M1[xc][yc][zc] += pow(-1.0,h+k+l-xc-yc-zc)/(sqrt(pow(h-xc,2)+pow(k-yc,2)+pow(l-zc,2))*exp(beta*r0*sqrt(pow(h-xc,2)+pow(k-yc,2)+pow(l-zc,2)));
  }
 
 
