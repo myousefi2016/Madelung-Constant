@@ -41,6 +41,36 @@ sum=0.0;
 
 }
 
+void Madelung_constant1_convergence(FILE* stream) {
+
+int h,k,l;
+double sum;
+sum=0.0;
+
+for (int x=3; x<201; x++) {
+
+ for (h=0; h<x+1; h++) {
+  for (k=0; k<x+1; k++) {
+   for (l=0; l<x+1; l++) {
+ 
+ if (h!=0 && k!=0 && l!=0) {
+ sum += pow(-1.0,h+k+l)/(sqrt(pow(h,2)+pow(k,2)+pow(l,2))*exp(beta*r0*sqrt(pow(h,2)+pow(k,2)+pow(l,2))));
+ }
+
+
+ }
+ }
+ }
+
+ fprintf(stream, "%d\t%f\n", x, sum);
+
+ sum=0.0;
+ 
+ }
+
+
+}
+
 double Madelung_constant2() {
 
 int h,k,l;
@@ -61,6 +91,35 @@ sum=0.0;
  }
 
  return sum;
+
+}
+
+void Madelung_constant2_convergence(FILE* stream) {
+
+int h,k,l;
+double sum;
+sum=0.0;
+
+for (int x=3; x<201; x++) {
+
+ for (h=0; h<x+1; h++) {
+  for (k=0; k<x+1; k++) {
+   for (l=0; l<x+1; l++) {
+ 
+ if (h!=0 && k!=0 && l!=0) {
+ sum += 1.0/sqrt(pow(pow(h,2)+pow(k,2)+pow(l,2),n));
+ }
+
+
+ }
+ }
+ }
+
+ fprintf(stream, "%d\t%f\n", x, sum);
+
+ sum=0.0; 
+
+ }
 
 }
 
@@ -129,6 +188,8 @@ void write_output_vtk(vector<vector<vector<double>>>& U, int nx, int ny, int nz)
 
 int main(int argc, char** argv) {
 
+FILE* f_convergence;
+char filename[40];
 double M1, M2;
 double alpha = 684;
 vector<vector<vector<double>>> U       (nx+1,vector<vector<double>>(ny+1,vector<double>(nz+1,0)));
@@ -137,10 +198,26 @@ M1 = Madelung_constant1();
 
 M2 = Madelung_constant2();
 
+sprintf(filename, "./Madelung1_modified.txt");
+
+f_convergence = fopen(filename, "w");
+
+Madelung_constant1_convergence(f_convergence);
+
+fclose(f_convergence);
+
+sprintf(filename, "./Madelung2_modified.txt");
+
+f_convergence = fopen(filename, "w");
+
+Madelung_constant2_convergence(f_convergence);
+
+fclose(f_convergence);
+
 Energy(U,alpha,M1,M2);
 
 write_output_vtk(U,nx+1,ny+1,nz+1);
 
-printf("The first Madelung constant is = %f and the second one is = %f\n",M1,M2); 
+printf("The first Madelung constant is = %f and the second one is = %f\n",M1,M2);
 
 }
