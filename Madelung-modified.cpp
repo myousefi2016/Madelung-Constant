@@ -28,7 +28,7 @@ sum=0.0;
   for (k=0; k<ny+1; k++) {
    for (l=0; l<nz+1; l++) {
  
- if (h!=0 && k!=0 && l!=0) {
+ if (h!=0 || k!=0 || l!=0) {
  sum += pow(-1.0,h+k+l)/(sqrt(pow(h,2)+pow(k,2)+pow(l,2))*exp(beta*r0*sqrt(pow(h,2)+pow(k,2)+pow(l,2))));
  }
 
@@ -41,7 +41,7 @@ sum=0.0;
 
 }
 
-void Madelung_constant1_convergence(FILE* stream) {
+void Madelung_constant1_convergence1(FILE* stream) {
 
 int h,k,l;
 double sum;
@@ -53,7 +53,7 @@ for (int x=3; x<201; x++) {
   for (k=0; k<x+1; k++) {
    for (l=0; l<x+1; l++) {
  
- if (h!=0 && k!=0 && l!=0) {
+ if (h!=0 || k!=0 || l!=0) {
  sum += pow(-1.0,h+k+l)/(sqrt(pow(h,2)+pow(k,2)+pow(l,2))*exp(beta*r0*sqrt(pow(h,2)+pow(k,2)+pow(l,2))));
  }
 
@@ -63,6 +63,36 @@ for (int x=3; x<201; x++) {
  }
 
  fprintf(stream, "%d\t%f\n", x, sum);
+
+ sum=0.0;
+ 
+ }
+
+
+}
+
+void Madelung_constant1_convergence2(FILE* stream) {
+
+int h,k,l;
+double sum;
+sum=0.0;
+
+for (double betap=0.0; betap<1.1; betap += 0.01) {
+
+ for (h=0; h<nx+1; h++) {
+  for (k=0; k<ny+1; k++) {
+   for (l=0; l<nz+1; l++) {
+ 
+ if (h!=0 || k!=0 || l!=0) {
+ sum += pow(-1.0,h+k+l)/(sqrt(pow(h,2)+pow(k,2)+pow(l,2))*exp(betap*r0*sqrt(pow(h,2)+pow(k,2)+pow(l,2))));
+ }
+
+
+ }
+ }
+ }
+
+ fprintf(stream, "%f\t%f\n", betap, sum);
 
  sum=0.0;
  
@@ -81,7 +111,7 @@ sum=0.0;
   for (k=0; k<ny+1; k++) {
    for (l=0; l<nz+1; l++) {
  
- if (h!=0 && k!=0 && l!=0) {
+ if (h!=0 || k!=0 || l!=0) {
  sum += 1.0/sqrt(pow(pow(h,2)+pow(k,2)+pow(l,2),n));
  }
 
@@ -106,7 +136,7 @@ for (int x=3; x<201; x++) {
   for (k=0; k<x+1; k++) {
    for (l=0; l<x+1; l++) {
  
- if (h!=0 && k!=0 && l!=0) {
+ if (h!=0 || k!=0 || l!=0) {
  sum += 1.0/sqrt(pow(pow(h,2)+pow(k,2)+pow(l,2),n));
  }
 
@@ -198,11 +228,19 @@ M1 = Madelung_constant1();
 
 M2 = Madelung_constant2();
 
-sprintf(filename, "./Madelung1_modified.txt");
+sprintf(filename, "./Madelung1_modified1.txt");
 
 f_convergence = fopen(filename, "w");
 
-Madelung_constant1_convergence(f_convergence);
+Madelung_constant1_convergence1(f_convergence);
+
+fclose(f_convergence);
+
+sprintf(filename, "./Madelung1_modified2.txt");
+
+f_convergence = fopen(filename, "w");
+
+Madelung_constant1_convergence2(f_convergence);
 
 fclose(f_convergence);
 

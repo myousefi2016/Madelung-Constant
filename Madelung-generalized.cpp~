@@ -33,7 +33,7 @@ for (int zc=0; zc<=nz; zc += 4) {
   for (k=0; k<ny+1; k += 4) {
    for (l=0; l<nz+1; l += 4) {
  
- if (h!=xc && k!=yc && l!=zc) {
+ if (h!=xc || k!=yc || l!=zc) {
  M1[xc][yc][zc] += pow(-1.0,h+k+l-xc-yc-zc)/sqrt(pow(h-xc,2)+pow(k-yc,2)+pow(l-zc,2));
  }
 
@@ -65,7 +65,7 @@ for (int zc=0; zc<=nz; zc += 4) {
   for (k=0; k<ny+1; k += 2) {
    for (l=0; l<nz+1; l += 2) {
  
- if (h!=xc && k!=yc && l!=zc) {
+ if (h!=xc || k!=yc || l!=zc) {
  M2[xc][yc][zc] += 1.0/sqrt(pow(pow(h-xc,2)+pow(k-yc,2)+pow(l-zc,2),n));
  }
 
